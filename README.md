@@ -39,8 +39,9 @@ O sistema conta com tela de login, utilizando a tabela **Funcionario** para vali
 
 ## 📦 Script SQL
 
-O sistema utiliza um banco de dados baseado em uma estrutura SQL. Para configurar seu banco, utilize as queries:
+O sistema utiliza um banco de dados baseado em uma estrutura SQL. Para configurar seu banco, execute as queries abaixo:
 
+```sql
 create database DBLibrary;
 
 use DBLibrary;
