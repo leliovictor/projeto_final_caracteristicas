@@ -46,44 +46,44 @@ create database DBLibrary;
 use DBLibrary;
 
 create table if not exists funcionario (
-idFuncionario int unsigned not null auto_increment primary key,
-nome varchar(60),
-login varchar(30) unique,
-senha varchar(30)
+    idFuncionario int unsigned not null auto_increment primary key,
+    nome varchar(60),
+    login varchar(30) unique,
+    senha varchar(30)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 create table if not exists livro (
-idLivro int unsigned not null auto_increment primary key,
-titulo text,
-autor varchar(100),
-editora varchar(100),
-preco decimal,
-quantidade int
+    idLivro int unsigned not null auto_increment primary key,
+    titulo text,
+    autor varchar(100),
+    editora varchar(100),
+    preco decimal,
+    quantidade int
 )ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 create table if not exists cliente (
-idCliente int unsigned not null auto_increment primary key,
-nome varchar(60),
-telefone varchar(20),
-email varchar(100)
+    idCliente int unsigned not null auto_increment primary key,
+    nome varchar(60),
+    telefone varchar(20),
+    email varchar(100)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 create table if not exists venda (
-idVenda int unsigned not null auto_increment primary key,
-data_venda DATE,
-total decimal,
-idCliente int not null,
-idFuncionario int not null,
-foreign key (idCliente)references cliente(idCliente),
-foreign key (idFuncionario)references funcionario(idFuncionario)
+    idVenda int unsigned not null auto_increment primary key,
+    data_venda DATE,
+    total decimal,
+    idCliente int not null,
+    idFuncionario int not null,
+    foreign key (idCliente) references cliente(idCliente),
+    foreign key (idFuncionario) references funcionario(idFuncionario)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 create table if not exists itens_venda (
-idItem int unsigned not null auto_increment primary key,
-quantidade int,
-subtotal decimal,
-idVenda int not null,
-idLivro int not null,
-foreign key (idVenda)references venda(idVenda),
-foreign key (idLivro)references livro(idLivro)
+    idItem int unsigned not null auto_increment primary key,
+    quantidade int,
+    subtotal decimal,
+    idVenda int not null,
+    idLivro int not null,
+    foreign key (idVenda) references venda(idVenda),
+    foreign key (idLivro) references livro(idLivro)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8;
