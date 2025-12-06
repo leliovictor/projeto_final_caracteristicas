@@ -58,7 +58,7 @@ create table if not exists livro (
     titulo text,
     autor varchar(100),
     editora varchar(100),
-    preco decimal,
+    preco decimal(10,2),
     quantidade int
 )ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
