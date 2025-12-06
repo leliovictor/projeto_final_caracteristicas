@@ -11,15 +11,22 @@ import persistencia.LivroDAO;
  */
 public class fmAdicionarLivro extends javax.swing.JFrame {
 
-    private Runnable reloadCallback;
+    private final Runnable reloadCallback;
+    private Livro uploadLivro;
     
     /**
      * Creates new form fmAdicionarLivro
+     * @param livro
      * @param reloadCallback
      */
-    public fmAdicionarLivro(Runnable reloadCallback) {
+    public fmAdicionarLivro(Livro livro, Runnable reloadCallback) {
         this.reloadCallback = reloadCallback;
+        this.uploadLivro = livro;
         initComponents();
+        
+        if(livro != null) {
+            preencherFormulario();
+        }
     }
 
     /**
@@ -86,6 +93,12 @@ public class fmAdicionarLivro extends javax.swing.JFrame {
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btSalvar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btLimpar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btSair))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(txtTitulo)
                         .addComponent(txtAutor)
@@ -94,14 +107,6 @@ public class fmAdicionarLivro extends javax.swing.JFrame {
                         .addComponent(txtPreco, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
                         .addComponent(sQuantidade, javax.swing.GroupLayout.Alignment.LEADING)))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(65, 65, 65)
-                .addComponent(btSalvar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btLimpar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btSair)
-                .addContainerGap(70, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -126,12 +131,12 @@ public class fmAdicionarLivro extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(sQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btSalvar)
                     .addComponent(btLimpar)
                     .addComponent(btSair))
-                .addGap(39, 39, 39))
+                .addGap(16, 16, 16))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -159,11 +164,21 @@ public class fmAdicionarLivro extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPrecoActionPerformed
 
     private void limpar() {
+        this.uploadLivro = null;
+               
         txtTitulo.setText("");
         txtAutor.setText("");
         txtEditora.setText("");
         txtPreco.setText("");
         sQuantidade.setValue(0);
+    }
+    
+    private void preencherFormulario() {
+        txtTitulo.setText(uploadLivro.getTitulo());
+        txtAutor.setText(uploadLivro.getAutor());
+        txtEditora.setText(uploadLivro.getEditora());
+        txtPreco.setValue(uploadLivro.getPreco());
+        sQuantidade.setValue(uploadLivro.getQuantidade());
     }
     
     private void btLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparActionPerformed
@@ -188,14 +203,21 @@ public class fmAdicionarLivro extends javax.swing.JFrame {
 
         // Gravação de dados
         ILivroDAO dao = new LivroDAO();
-        dao.adicionar(livro);
-        JOptionPane.showMessageDialog(null, "Os dados foram gravados!");
         
+        if(this.uploadLivro != null) {
+            livro.setIdLivro(uploadLivro.getIdLivro());
+            dao.atualizar(livro);
+            JOptionPane.showMessageDialog(null, "Os dados foram atualizados!");
+        } else {
+            dao.adicionar(livro);
+            JOptionPane.showMessageDialog(null, "Os dados foram gravados!");
+        }
+               
         if (reloadCallback != null) {
             reloadCallback.run();
         }
         
-        limpar();
+        if(this.uploadLivro == null) limpar();
     }//GEN-LAST:event_btSalvarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

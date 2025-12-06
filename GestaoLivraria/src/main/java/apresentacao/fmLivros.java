@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
 package apresentacao;
 
 import java.util.List;
@@ -15,6 +11,7 @@ import persistencia.LivroDAO;
  * @author Lelio Victor
  */
 public class fmLivros extends javax.swing.JInternalFrame {
+    private Livro livroSelecionado = null;
 
     /**
      * Creates new form fmLivros
@@ -35,7 +32,7 @@ public class fmLivros extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jLivros = new javax.swing.JTable();
         btAdicionar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btEditar = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Gestão de livros");
@@ -83,13 +80,20 @@ public class fmLivros extends javax.swing.JInternalFrame {
         jLivros.setEditingColumn(0);
         jLivros.setEditingRow(0);
         jLivros.setFocusable(false);
+        jLivros.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLivrosMouseClicked(evt);
+            }
+        });
+        jLivros.addPropertyChangeListener(this::jLivrosPropertyChange);
         jScrollPane1.setViewportView(jLivros);
 
         btAdicionar.setText("Adicionar");
         btAdicionar.addActionListener(this::btAdicionarActionPerformed);
 
-        jButton2.setText("Editar");
-        jButton2.addActionListener(this::jButton2ActionPerformed);
+        btEditar.setText("Editar");
+        btEditar.setEnabled(false);
+        btEditar.addActionListener(this::btEditarActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -100,7 +104,7 @@ public class fmLivros extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btAdicionar, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -109,7 +113,7 @@ public class fmLivros extends javax.swing.JInternalFrame {
                 .addGap(65, 65, 65)
                 .addComponent(btAdicionar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(btEditar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -119,9 +123,10 @@ public class fmLivros extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
+        fmAdicionarLivro adicionarLivro = new fmAdicionarLivro(this.livroSelecionado, () -> reloadTable());
+        adicionarLivro.setVisible(true);
+    }//GEN-LAST:event_btEditarActionPerformed
 
     private void reloadTable() {
         ILivroDAO dao = new LivroDAO();
@@ -148,15 +153,36 @@ public class fmLivros extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formInternalFrameOpened
 
     private void btAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarActionPerformed
-        fmAdicionarLivro adicionarLivro = new fmAdicionarLivro(() -> reloadTable());
+        fmAdicionarLivro adicionarLivro = new fmAdicionarLivro(null, () -> reloadTable());
         adicionarLivro.setVisible(true);
-        
     }//GEN-LAST:event_btAdicionarActionPerformed
+
+    private void jLivrosPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jLivrosPropertyChange
+    }//GEN-LAST:event_jLivrosPropertyChange
+
+    private void jLivrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLivrosMouseClicked
+        btEditar.setEnabled(true);
+        
+        int rowSelected = jLivros.getSelectedRow();
+        
+        if (rowSelected == -1) {
+            return ;
+        }
+        
+        int idLivro = Integer.parseInt(jLivros.getValueAt(rowSelected, 0).toString());
+        String titulo = jLivros.getValueAt(rowSelected, 1).toString();
+        String autor = jLivros.getValueAt(rowSelected, 2).toString();
+        String editora = jLivros.getValueAt(rowSelected, 3).toString();
+        double preco = Double.parseDouble(jLivros.getValueAt(rowSelected, 4).toString());
+        int quantidade = Integer.parseInt(jLivros.getValueAt(rowSelected, 5).toString());
+        
+        this.livroSelecionado = new Livro(idLivro, titulo, autor, editora, preco, quantidade);
+    }//GEN-LAST:event_jLivrosMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAdicionar;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btEditar;
     private javax.swing.JTable jLivros;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables

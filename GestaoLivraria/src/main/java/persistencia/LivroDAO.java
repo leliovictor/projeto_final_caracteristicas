@@ -73,4 +73,27 @@ public class LivroDAO implements ILivroDAO {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public void atualizar(Livro livro) {
+        String sql = "UPDATE livro SET titulo = ?, autor = ?, editora = ?, preco = ?, quantidade = ? "
+               + "WHERE idLivro = ?";
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+
+            stmt.setString(1, livro.getTitulo());
+            stmt.setString(2, livro.getAutor());
+            stmt.setString(3, livro.getEditora());
+            stmt.setBigDecimal(4, new BigDecimal(livro.getPreco()));
+            stmt.setInt(5, livro.getQuantidade());
+            stmt.setInt(6, livro.getIdLivro());
+
+            stmt.executeUpdate();
+            stmt.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

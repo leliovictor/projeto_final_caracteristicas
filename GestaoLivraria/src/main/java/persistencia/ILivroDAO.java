@@ -13,5 +13,6 @@ import negocio.Livro;
  */
 public interface ILivroDAO {
     public void adicionar(Livro livro);
+    public void atualizar(Livro livro);
     public List<Livro> listarTodos();
 }
