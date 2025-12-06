@@ -11,7 +11,7 @@ package negocio;
 public class Funcionario {
     private int idFuncionario;
     private String nome;
-    private String usuario;
+    private String login;
     private String senha;
 
     public Funcionario() {
@@ -20,7 +20,7 @@ public class Funcionario {
     public Funcionario(int idFuncionario, String nome, String usuario, String senha) {
         this.idFuncionario = idFuncionario;
         this.nome = nome;
-        this.usuario = usuario;
+        this.login = usuario;
         this.senha = senha;
     }
     
@@ -32,8 +32,8 @@ public class Funcionario {
         return nome;
     }
 
-    public String getUsuario() {
-        return usuario;
+    public String getLogin() {
+        return login;
     }
 
     public String getSenha() {
@@ -48,8 +48,8 @@ public class Funcionario {
         this.nome = nome;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public void setSenha(String senha) {

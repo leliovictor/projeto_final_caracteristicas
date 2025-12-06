@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package persistencia;
 
 /**
@@ -9,5 +5,6 @@ package persistencia;
  * @author Lelio Victor
  */
 public interface IFuncionarioDAO {
+    public boolean login(String login, String senha);
     
 }
