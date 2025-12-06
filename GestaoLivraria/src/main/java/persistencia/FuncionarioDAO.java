@@ -1,13 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package persistencia;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import negocio.Funcionario;
 
 /**
  *
@@ -41,5 +38,24 @@ public class FuncionarioDAO implements IFuncionarioDAO {
         }
         
         return false;
+    }
+
+    @Override
+    public void adicionar(Funcionario funcionario) {
+        String sql = "INSERT INTO funcionario (nome, login, senha) VALUES (?, ?, ?)";
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+
+            stmt.setString(1, funcionario.getNome());
+            stmt.setString(2, funcionario.getLogin());
+            stmt.setString(3, funcionario.getSenha());
+
+            stmt.execute();
+            stmt.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

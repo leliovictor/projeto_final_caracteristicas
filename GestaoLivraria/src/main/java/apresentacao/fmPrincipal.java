@@ -46,11 +46,11 @@ public class fmPrincipal extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 590, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 277, Short.MAX_VALUE)
+            .addGap(0, 336, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Livros");
@@ -71,6 +71,7 @@ public class fmPrincipal extends javax.swing.JFrame {
         jMenu3.setText("Funcionarios");
 
         jMenuItem1.setText("Novo cadastro");
+        jMenuItem1.addActionListener(this::jMenuItem1ActionPerformed);
         jMenu3.add(jMenuItem1);
 
         jMenuBar1.add(jMenu3);
@@ -113,6 +114,12 @@ public class fmPrincipal extends javax.swing.JFrame {
         jPanel1.add(sobre);
         sobre.setVisible(true);
     }//GEN-LAST:event_jMenu5MouseClicked
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        fmNovoFuncionario novoFuncionario = new fmNovoFuncionario();
+        jPanel1.add(novoFuncionario);
+        novoFuncionario.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
