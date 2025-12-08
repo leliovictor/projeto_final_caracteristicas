@@ -4,10 +4,14 @@
  */
 package persistencia;
 
+import java.util.List;
+import negocio.Cliente;
+
 /**
  *
  * @author Lelio Victor
  */
 public interface IClienteDAO {
-    
+    public void adicionar(Cliente cliente);
+    public List<Cliente> listarTodos();
 }

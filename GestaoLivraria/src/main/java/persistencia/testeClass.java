@@ -17,7 +17,7 @@ import java.sql.SQLException;
 public class testeClass {
     
     public static void main(String[] args) throws SQLException {
-        Connection conexao = DriverManager.getConnection("jdbc:mysql://localhost/dblibrary", "admin", "root");
+        Connection conexao = DriverManager.getConnection("jdbc:mysql://localhost/dblibrary", "root", "24479018");
         System.out.println("Conectado!");
         conexao.close();
     }

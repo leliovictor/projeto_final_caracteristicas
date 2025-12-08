@@ -33,7 +33,10 @@ public class fmPrincipal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
@@ -63,9 +66,23 @@ public class fmPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Clientes");
+
+        jMenuItem3.setText("Novo cadastro");
+        jMenuItem3.addActionListener(this::jMenuItem3ActionPerformed);
+        jMenu2.add(jMenuItem3);
+
+        jMenuItem.setText("Lista de clientes");
+        jMenuItem.addActionListener(this::jMenuItemActionPerformed);
+        jMenu2.add(jMenuItem);
+
         jMenuBar1.add(jMenu2);
 
         jMenu4.setText("Vendas");
+
+        jMenuItem4.setText("Nova Venda");
+        jMenuItem4.addActionListener(this::jMenuItem4ActionPerformed);
+        jMenu4.add(jMenuItem4);
+
         jMenuBar1.add(jMenu4);
 
         jMenu3.setText("Funcionarios");
@@ -121,6 +138,24 @@ public class fmPrincipal extends javax.swing.JFrame {
         novoFuncionario.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        fmNovoCliente novoCliente = new fmNovoCliente();
+        jPanel1.add(novoCliente);
+        novoCliente.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemActionPerformed
+        fmListagemDeClientes novaListagem = new fmListagemDeClientes();
+        jPanel1.add(novaListagem);
+        novaListagem.setVisible(true);
+    }//GEN-LAST:event_jMenuItemActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        fmNovaVenda novavenda = new fmNovaVenda();
+        jPanel1.add(novavenda);
+        novavenda.setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -153,8 +188,11 @@ public class fmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
